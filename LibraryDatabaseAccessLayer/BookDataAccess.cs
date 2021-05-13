@@ -1,26 +1,31 @@
-﻿using System;
+﻿using LibraryCommon;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Data;
-using ConsoleLibrary.DataEntity;
-using LibraryCommon;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LibraryDatabaseAccessLayer
 {
     public class BookDataAccess
     {
-        string _conn = @"Data Source=KILLAR\SQLEXPRESS;Initial Catalog=LibraryTest;Integrated Security=True";
+
+        private string _conn = "";
+
+        public BookDataAccess()
+        {
+
+        }
+        public BookDataAccess(string conn)
+        {
+            _conn = conn;
+        }
+
         public List<Book> GetBooks()
         {
 
-
-            // TESTing - just mock the list right now
-            // MockBooks _mockBooks = new MockBooks();
-            // return _mockBooks.Books;
-
-
-            // implement this with ado.net  
             List<Book> _list = new List<Book>();
             using (SqlConnection con = new SqlConnection(_conn))
             {
@@ -58,7 +63,7 @@ namespace LibraryDatabaseAccessLayer
         }
 
 
-        public int CreateBook(Book b)
+        public void CreateBook(Book b)
         {
             using (SqlConnection con = new SqlConnection(_conn))
             {
@@ -124,21 +129,15 @@ namespace LibraryDatabaseAccessLayer
                     _sqlCommand.Parameters.Add(_paramPublisherIDFK);
 
 
-                    SqlParameter _paramBookIDReturn = _sqlCommand.CreateParameter();
-                    _paramBookIDReturn.DbType = DbType.Int32;
-                    _paramBookIDReturn.ParameterName = "@ParamOutBookID";
-                    _sqlCommand.Parameters.Add(_paramBookIDReturn);
-                    _paramBookIDReturn.Direction = ParameterDirection.Output;
+
 
 
                     con.Open();
                     _sqlCommand.ExecuteNonQuery();   // calls the sp                                                      
-                    var result = _paramBookIDReturn.Value;
+
                     con.Close();
-                    return (int)result;
+
                 }
-
-
             }
         }
 
@@ -220,7 +219,6 @@ namespace LibraryDatabaseAccessLayer
                     _sqlCommand.ExecuteNonQuery();   // calls the sp                                                      
                     con.Close();
 
-
                 }
             }
         }
@@ -249,9 +247,6 @@ namespace LibraryDatabaseAccessLayer
                 }
             }
         }
-
-
-
 
     }
 }

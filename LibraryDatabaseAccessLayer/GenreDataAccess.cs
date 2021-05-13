@@ -1,18 +1,29 @@
-﻿using System;
+﻿using LibraryCommon;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Data;
-using ConsoleLibrary.DataEntity;
-using LibraryCommon;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LibraryDatabaseAccessLayer
 {
     public class GenreDataAccess
     {
 
-        string _conn = @"Data Source=KILLAR\SQLEXPRESS;Initial Catalog=LibraryTest;Integrated Security=True";
-        public List<Genre> GetGenre()
+        private string _conn = "";
+
+        public GenreDataAccess()
+        {
+
+        }
+        public GenreDataAccess(string conn)
+        {
+            _conn = conn;
+        }
+
+        public List<Genre> GetGenres()
         {
             List<Genre> genres = new List<Genre>();
             List<Genre> _list = genres;
@@ -24,7 +35,7 @@ namespace LibraryDatabaseAccessLayer
                 {
                     _sqlCommand.CommandType = CommandType.StoredProcedure;
                     _sqlCommand.CommandTimeout = 35;
-                    //_sqlCommand.Parameters.AddWithValue("@BookID", inOneParticularBook);
+
                     con.Open();
                     Genre _Genre;
                     using (SqlDataReader reader = _sqlCommand.ExecuteReader())
@@ -40,9 +51,7 @@ namespace LibraryDatabaseAccessLayer
                                 GenreID = reader.GetInt32(reader.GetOrdinal("GenreID")),
                                 Name = (string)reader["Name"],
                                 Description = (string)reader["Description"],
-                                isFiction = (bool)reader["isFiction"],
-
-
+                                IsFiction = (bool)reader["isFiction"],
 
 
                             }; _list.Add(_Genre);
@@ -58,6 +67,49 @@ namespace LibraryDatabaseAccessLayer
             }
         }
 
+
+        public void CreateGenre(Genre g)
+        {
+            using (SqlConnection con = new SqlConnection(_conn))
+            {
+
+
+                using (SqlCommand _sqlCommand = new SqlCommand("spCreateGenre", con))
+                {
+
+                    _sqlCommand.CommandType = CommandType.StoredProcedure;
+                    _sqlCommand.CommandTimeout = 30;
+
+
+                    SqlParameter _paramName = _sqlCommand.CreateParameter();
+                    _paramName.DbType = DbType.String;
+                    _paramName.ParameterName = "@ParamName";
+                    _paramName.Value = g.Name;
+                    _sqlCommand.Parameters.Add(_paramName);
+
+
+                    SqlParameter _paramDescription = _sqlCommand.CreateParameter();
+                    _paramDescription.DbType = DbType.String;
+                    _paramDescription.ParameterName = "@ParamDescription";
+                    _paramDescription.Value = g.Description;
+                    _sqlCommand.Parameters.Add(_paramDescription);
+
+
+                    SqlParameter _paramIsFiction = _sqlCommand.CreateParameter();
+                    _paramIsFiction.DbType = DbType.Boolean;
+                    _paramIsFiction.ParameterName = "@ParamIsFiction";
+                    _paramIsFiction.Value = g.IsFiction;
+                    _sqlCommand.Parameters.Add(_paramIsFiction);
+
+
+                    con.Open();
+                    _sqlCommand.ExecuteNonQuery();   // calls the 
+                    //var result = _paramAuthorIDReturn.Value;
+                    con.Close();
+                    //return (int)result;
+                }
+            }
+        }
 
         public void UpdateGenre(Genre g)
         {
@@ -78,26 +130,23 @@ namespace LibraryDatabaseAccessLayer
 
                     SqlParameter _paramGenreName = _sqlCommand.CreateParameter();
                     _paramGenreName.DbType = DbType.String;
-                    _paramGenreName.ParameterName = "@ParamGenreName";
+                    _paramGenreName.ParameterName = "@ParamName";
                     _paramGenreName.Value = g.Name;
                     _sqlCommand.Parameters.Add(_paramGenreName);
 
 
                     SqlParameter _paramGenreIsFiction = _sqlCommand.CreateParameter();
                     _paramGenreIsFiction.DbType = DbType.Boolean;
-                    _paramGenreIsFiction.ParameterName = "@ParamGenreIsFiction";
-                    _paramGenreIsFiction.Value = g.isFiction;
+                    _paramGenreIsFiction.ParameterName = "@ParamIsFiction";
+                    _paramGenreIsFiction.Value = g.IsFiction;
                     _sqlCommand.Parameters.Add(_paramGenreIsFiction);
 
 
                     SqlParameter _paramGenreDescription = _sqlCommand.CreateParameter();
                     _paramGenreDescription.DbType = DbType.String;
-                    _paramGenreDescription.ParameterName = "@ParamGenreDescription";
+                    _paramGenreDescription.ParameterName = "@ParamDescription";
                     _paramGenreDescription.Value = g.Description;
                     _sqlCommand.Parameters.Add(_paramGenreDescription);
-
-
-
 
 
                     con.Open();
@@ -133,70 +182,5 @@ namespace LibraryDatabaseAccessLayer
                 }
             }
         }
-
-
-
-        /// <summary>
-        /// The CreateGenre.
-        /// </summary>
-        /// <param name="g">The g<see cref="Genre"/>.</param>
-        public void CreateGenre(Genre g)
-        {
-            using (SqlConnection con = new SqlConnection(_conn))
-            {
-
-
-                using (SqlCommand _sqlCommand = new SqlCommand("spCreateGenre", con))
-                {
-
-
-                    _sqlCommand.CommandType = CommandType.StoredProcedure;
-                    _sqlCommand.CommandTimeout = 30;
-
-
-
-
-                    SqlParameter _paramName = _sqlCommand.CreateParameter();
-                    _paramName.DbType = DbType.String;
-                    _paramName.ParameterName = "@ParamName";
-                    _paramName.Value = g.Name;
-                    _sqlCommand.Parameters.Add(_paramName);
-
-
-
-
-                    SqlParameter _paramDescription = _sqlCommand.CreateParameter();
-                    _paramDescription.DbType = DbType.String;
-                    _paramDescription.ParameterName = "@ParamDescription";
-                    _paramDescription.Value = g.Description;
-                    _sqlCommand.Parameters.Add(_paramDescription);
-
-
-
-
-                    SqlParameter _paramIsFiction = _sqlCommand.CreateParameter();
-                    _paramIsFiction.DbType = DbType.Boolean;
-                    _paramIsFiction.ParameterName = "@ParamGenre";
-                    _sqlCommand.Parameters.Add(_paramIsFiction);
-
-
-
-
-                    // return.ParameterName = "@ParamOutGenreID";
-                    // _sqlCommand.Parameters.Add(_paramGenreIDReturn);
-                    // _paramPGenreIDReturn.Direction = ParameterDirection.Output;
-
-
-
-
-                    con.Open();
-                    _sqlCommand.ExecuteNonQuery();   // calls the 
-                    //var result = _paramAuthorIDReturn.Value;
-                    con.Close();
-                    //return (int)result;
-                }
-            }
-        }
     }
 }
- 

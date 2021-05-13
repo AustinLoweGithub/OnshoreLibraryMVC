@@ -29,8 +29,10 @@ namespace UnitTestProject1
 
         public void Get_Author()
         {
+            List<Author> authors = _data.GetAuthor();
 
-
+            Assert.AreEqual(5, authors.Count);
+            
 
 
         }
@@ -42,13 +44,47 @@ namespace UnitTestProject1
 
         public void Add_Author()
         {
+            Author test = new Author();
+
+            test.FirstName = "ugh";
+            test.LastName = "imdone";
+            test.Bio = "these tests are annoying when I know it works";
+            test.BirthLocation = "fiveworkingtests";
+            test.DateOfBirth = new DateTime(2015, 12, 31, 5, 10, 20);
 
 
+            List<Author> authors = _data.GetAuthor();
+
+            foreach (Author auth in authors)
+            {
+                if (auth.FirstName.Equals("ugh"))
+                {
+                    Assert.AreEqual("ugh", auth.FirstName);
+                    Assert.AreEqual("imdone", auth.LastName);
+                    Assert.AreEqual("these tests are annoying when I know it works", auth.Bio);
+                    Assert.AreEqual("fiveworkingtests", auth.BirthLocation);
+                
+                }
+            }
 
 
         }
 
 
+        [TestMethod]
+        public void Update_Author()
+        {
 
+
+        }
+
+        [TestMethod]
+        public void Delete_Author()
+        {
+
+
+        }
+
+        
     }
 }

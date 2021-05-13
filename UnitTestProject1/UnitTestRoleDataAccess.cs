@@ -56,7 +56,7 @@ namespace UnitTestProject1
 
             // act
 
-            list = _data.GetRole();
+            list = _data.GetRoles();
             int _countBeforeAdd = list.Count;
 
             Role r = new Role { RoleName = "Testing Role" };
@@ -64,7 +64,7 @@ namespace UnitTestProject1
             // assert
             // need to delete this one
 
-            list = _data.GetRole();
+            list = _data.GetRoles();
             int _countAfterAdd = list.Count;
 
             Assert.IsTrue(_countBeforeAdd + 1 == _countAfterAdd);

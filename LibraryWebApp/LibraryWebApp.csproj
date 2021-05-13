@@ -121,7 +121,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PublisherController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -131,6 +134,13 @@
     <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\AuthorModelVM.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\BookListVM.cs" />
+    <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\GenreListVM.cs" />
+    <Compile Include="Models\GenreModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PublisherListVM.cs" />
+    <Compile Include="Models\PublisherModel.cs" />
     <Compile Include="Models\RoleListVM.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserListVM.cs" />
@@ -428,6 +438,23 @@
     <Content Include="Views\User\UpdateUser.cshtml" />
     <Content Include="Views\Role\GetRoles.cshtml" />
     <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\Book\CreateBook.cshtml" />
+    <Content Include="Views\Book\GetBooks.cshtml" />
+    <Content Include="Views\Book\UpdateBook.cshtml" />
+    <Content Include="Views\Genre\CreateGenre.cshtml" />
+    <Content Include="Views\Genre\GetGenres.cshtml" />
+    <Content Include="Views\Genre\UpdateGenre.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Publisher\CreatePublisher.cshtml" />
+    <Content Include="Views\Publisher\GetPublishers.cshtml" />
+    <Content Include="Views\Publisher\UpdatePublisher.cshtml" />
+    <Content Include="Views\Role\CreateRole.cshtml" />
+    <Content Include="Views\Role\UpdateRole.cshtml" />
+    <Content Include="Views\Shared\_Layout_Administrator.cshtml" />
+    <Content Include="Views\Shared\_Layout_Librarian.cshtml" />
+    <Content Include="Views\Shared\_Layout_Patron.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -67,6 +67,8 @@ namespace LibraryWebApp.Controllers
             }
             else
             {
+                RoleListVM list = new RoleListVM(roleBL.BLGetRoles());
+                ViewBag.Roles = new SelectList(list.ListOfRoleModels, "RoleId", "RoleName");
                 return View();
             }
         }

@@ -12,10 +12,12 @@ namespace LibraryWebApp.Controllers
     public class RoleController : Controller
     {
         private readonly string _dbConn;
+        RoleBusinessLogic roleBL;
 
         public RoleController() : base()
         {
             _dbConn = System.Configuration.ConfigurationManager.ConnectionStrings["conn"].ConnectionString;
+            roleBL = new RoleBusinessLogic(_dbConn);
         }
 
         public ActionResult Index()
@@ -26,8 +28,6 @@ namespace LibraryWebApp.Controllers
         [HttpGet]
         public ActionResult GetRoles()
         {
-
-            RoleBusinessLogic roleBL = new RoleBusinessLogic(_dbConn);
             List<Role> _list = roleBL.BLGetRoles();
             RoleListVM model = new RoleListVM(_list);
             return View(model);
@@ -42,19 +42,46 @@ namespace LibraryWebApp.Controllers
         [HttpPost]
         public ActionResult CreateRole(RoleModel model)
         {
-            return View();
+            Role role = new Role();
+
+            role.RoleName = model.RoleName;
+
+            roleBL.BLCreateRole(role);
+
+            return RedirectToAction("GetRoles", "Role");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateRole(RoleModel model, int id)
+        {
+            model.RoleID = id;
+
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult UpdateRole()
+        public ActionResult UpdateRole(RoleModel model)
         {
-            return View();
+            Role role = new Role();
+
+            role.RoleID = model.RoleID;
+            role.RoleName = model.RoleName;
+
+            roleBL.BLUpdateRole(role);
+
+            return RedirectToAction("GetRoles", "Role");
         }
 
         [HttpPost]
-        public ActionResult DeleteRole()
+        public ActionResult DeleteRole(int id)
         {
-            return View();
+            Role role = new Role();
+
+            role.RoleID = id;
+
+            roleBL.BLDeleteRole(role);
+
+            return RedirectToAction("GetRoles", "Role");
         }
     }
 }

@@ -10,6 +10,7 @@ namespace LibraryWebApp.Models
 {
     public class UserModel : BaseModel
     {
+        [Required]
         public int UserID { get; set; }
 
         [Required]
@@ -30,6 +31,8 @@ namespace LibraryWebApp.Models
         [MaxLength(100, ErrorMessage = "Must be 100 characters or less.")]
         [RegularExpression("^((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)).+$", ErrorMessage = "Must contain One Uppercase, One Lowercase and One number.")]
         public string Password { get; set; }
+
+        public string RoleName { get; set; }
 
         [Required]
         [Range(1, 3, ErrorMessage = "Must be 1-3")]

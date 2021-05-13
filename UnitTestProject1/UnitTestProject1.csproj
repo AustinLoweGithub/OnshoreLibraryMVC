@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthorBusinessLogicTest2.cs" />
+    <Compile Include="UnitTestUserDataAccess.cs" />
     <Compile Include="UnitTestAuthorDataAccess.cs" />
     <Compile Include="UnitTestRoleDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

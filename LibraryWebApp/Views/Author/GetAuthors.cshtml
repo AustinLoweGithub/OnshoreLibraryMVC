@@ -27,21 +27,20 @@
 
 
 
-@using (Html.BeginForm("CreateAuthor", "Author", FormMethod.Get))
-{
-    <input class="btn btn-primary" type="submit" value="Add" />
-
-}
 
 <table id="tblAuthors" class="display" style="width:100%">
 
     <thead>
         <tr>
             <th hidden="hidden"></th>
-            <th>Author Name</th>
-            <th></th>
-            <th></th>
-
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th hidden="hidden"></th>
+            <th hidden="hidden"></th>
+            <th hidden="hidden"></th>
+            <th>Author ID</th>
+            <th>Update Author</th>
+            <th>Delete Author</th>
         </tr>
 
     </thead>
@@ -60,15 +59,15 @@
                     </td>
 
                     <td>
-
                         @_current.FirstName
-                        @_current.LastName
-                        @_current.AuthorID
-
                     </td>
 
+                    <td>
+                         @_current.LastName
+                    </td>
 
                     <td>
+                        @_current.AuthorID
                     </td>
 
 
@@ -99,9 +98,6 @@
 
                             <input class="btn btn-danger" type="submit" value="Delete" />
 
-
-
-
                         }
 
 
@@ -111,31 +107,22 @@
 
                 </tr>
 
-
-
-
-
-
             }
 
             // submit == post in controller
-
-
-
-
-
-
         }
 
-
-
     </tbody>
-
-
-
-
-
 </table>
+
+
+<div>
+    @using (Html.BeginForm("CreateAuthor", "Author", FormMethod.Get))
+    {
+        <input class="btn btn-primary" type="submit" value="Add" />
+
+    }
+</div>
 
 
 @section Scripts

@@ -22,9 +22,13 @@ namespace LibraryWebApp.Models
         public string LastName { get; set; }
 
         [Required]
-        [MaxLength(500, ErrorMessage = "FirstName can not be more than 100 characters long.")]
+        [MaxLength(500, ErrorMessage = "Bio can not be more than 500 characters long.")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please.")]
         public string Bio { get; set; }
+
+        [Required]
+        [MaxLength(100, ErrorMessage = "LastName can not be more than 100 characters long.")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please.")]
         public string BirthLocation { get; set; }
         public DateTime DateOfBirth { get; set; }
 

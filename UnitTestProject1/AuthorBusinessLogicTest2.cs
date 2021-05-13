@@ -47,6 +47,45 @@ namespace UnitTestProject1
             }
 
 
-        
+        [TestMethod]
+        public void TestCreateAuthor()
+        {
+            Author test = new Author();
+
+            test.AuthorID = 45;
+            test.FirstName = "Greg";
+            test.LastName = "Gregory";
+            test.Bio = "biography";
+            test.BirthLocation = "over there";
+            test.DateOfBirth = new DateTime(2015,12,31,5,10,20);
+
+
+
+            _businessLogic.CreateAuthorPassThru(test);
+
+           List<Author> _auths = _businessLogic.GetAuthorPassThru();
+
+            foreach (Author auth in _auths)
+            {
+                if (auth.FirstName.Equals("Greg"))
+                {
+                    Assert.AreEqual("Greg", auth.FirstName);
+                    Assert.AreEqual("Gregory", auth.LastName);
+                    Assert.AreEqual("biography", auth.Bio);
+                    Assert.AreEqual("over there", auth.BirthLocation);
+                }
+            }
+        }
+
+
+
+
+
+
+  
+       
+
+
+
     }
 }

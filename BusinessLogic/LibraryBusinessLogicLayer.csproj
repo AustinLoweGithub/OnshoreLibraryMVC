@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthorBusinessLogic.cs" />
+    <Compile Include="BookBusinessLogic.cs" />
+    <Compile Include="GenreBusinessLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublisherBusinessLogic.cs" />
     <Compile Include="RoleBusinessLogic.cs" />
     <Compile Include="UserBusinessLogic.cs" />
   </ItemGroup>

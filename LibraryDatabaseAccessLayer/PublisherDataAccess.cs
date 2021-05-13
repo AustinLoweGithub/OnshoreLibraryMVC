@@ -10,9 +10,19 @@ namespace LibraryDatabaseAccessLayer
 {
     public class PublisherDataAccess
     {
-        string _conn = @"Data Source=KILLAR\SQLEXPRESS;Initial Catalog=LibraryTest;Integrated Security=True";
+      
 
 
+        private string _conn = "";
+
+        public PublisherDataAccess()
+        {
+
+        }
+        public PublisherDataAccess(string conn)
+        {
+            _conn = conn;
+        }
 
         public List<Publisher> GetPublisher()
         {

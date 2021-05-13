@@ -84,7 +84,7 @@ namespace LibraryWebApp.Controllers
             return View(model);
 
 
-            // df
+           
         }
 
 
@@ -94,25 +94,38 @@ namespace LibraryWebApp.Controllers
 
         public ActionResult UpdateAuthor(AuthorModel _Update)
         {
-             Author _auth = new Author();
 
 
-            _auth.AuthorID = _Update.AuthorID;
-            _auth.FirstName = _Update.FirstName;
-            _auth.LastName = _Update.LastName;
-            _auth.Bio = _Update.Bio;
-            _auth.BirthLocation = _Update.BirthLocation;
-            _auth.DateOfBirth = _Update.DateOfBirth;
+            if (!ModelState.IsValid)
+            {
 
+                return View();
 
+            }
 
 
 
-            authBusLay.UpdateAuthorPassThru(_auth);
+            else
+            {
+                Author _auth = new Author();
 
-            return RedirectToAction("GetAuthors", "Author");
+
+                _auth.AuthorID = _Update.AuthorID;
+                _auth.FirstName = _Update.FirstName;
+                _auth.LastName = _Update.LastName;
+                _auth.Bio = _Update.Bio;
+                _auth.BirthLocation = _Update.BirthLocation;
+                _auth.DateOfBirth = _Update.DateOfBirth;
 
 
+
+
+
+                authBusLay.UpdateAuthorPassThru(_auth);
+
+                return RedirectToAction("GetAuthors", "Author");
+
+            }
         }
 
 
@@ -120,6 +133,8 @@ namespace LibraryWebApp.Controllers
 
         public ActionResult CreateAuthor()
         {
+
+            
 
 
             return View();
@@ -131,19 +146,28 @@ namespace LibraryWebApp.Controllers
 
         public ActionResult CreateAuthor(AuthorModel _Create)
         {
-            Author _auth = new Author();
+            if (!ModelState.IsValid)
+            {
 
-            _auth.AuthorID = _Create.AuthorID;
-            _auth.FirstName = _Create.FirstName;
-            _auth.LastName = _Create.LastName;
-            _auth.Bio = _Create.Bio;
-            _auth.BirthLocation = _Create.BirthLocation;
-            _auth.DateOfBirth = _Create.DateOfBirth;
+                return View();
 
-            authBusLay.CreateAuthorPassThru(_auth);
+            }
 
-            return RedirectToAction("GetAuthors", "Author");
+            else
+            {
+                Author _auth = new Author();
 
+                _auth.AuthorID = _Create.AuthorID;
+                _auth.FirstName = _Create.FirstName;
+                _auth.LastName = _Create.LastName;
+                _auth.Bio = _Create.Bio;
+                _auth.BirthLocation = _Create.BirthLocation;
+                _auth.DateOfBirth = _Create.DateOfBirth;
+
+                authBusLay.CreateAuthorPassThru(_auth);
+
+                return RedirectToAction("GetAuthors", "Author");
+            }
         }
 
 
